@@ -7,21 +7,19 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirrect: '/index',
+    redirect: '/index'
   },
-  //登录页
   {
     path: '/login',
     name: 'login',
     component: Login
   },
-  //一级路由 主页
   {
     path: '/index',
     name: 'index',
     component: Index
-  },
-  
+  }
+
   // {
   //   path: '/about',
   //   name: 'about',
