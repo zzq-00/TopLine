@@ -71,9 +71,18 @@ export default {
       // 通过this.$refs.属性---获取DOM对象
       // this.$refs.formDom  获取el-form的对象实例
       // validate 整个表单的校验方法
-      this.$refs.formDom.validate(function (isOk) {
+      this.$refs.formDom.validate((isOk) => {
         if (isOk) {
           // 如果为true 继续下一步 调用接口 登录
+          this.$axios({
+            method: 'post',
+            url: '/authorizations',
+            data: this.loginForm
+          }).then((res) => {
+            console.log(res.data)
+            // res.data.data.token 获取token 存到本地浏览器
+            window.localStorage.setItem('user-token', res.data.data.token)
+          })
         }
       })
     }
