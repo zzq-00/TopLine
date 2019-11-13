@@ -5,7 +5,7 @@
       <!-- 卡片内容 -->
       <div class="title"><img src="../../img/logo_index.png" alt=""></div>
       <!-- 表单 moder表示表单数据对象 rule表示表单校验规则-->
-      <el-form style="margin-top:30px" :rules="loginrule" :model="loginForm">
+      <el-form ref='formDom' style="margin-top:30px" :rules="loginrule" :model="loginForm">
         <el-form-item prop="mobile">
           <el-input placeholder="请输入手机号" v-model="loginForm.mobile"></el-input>
         </el-form-item>
@@ -17,18 +17,12 @@
           <el-checkbox v-model="loginForm.checked">阅读并同意</el-checkbox>
         </el-form-item>
         <el-form-item style="text-align:center">
-          <el-button type="primary" style="width:100%">登 录</el-button>
+          <el-button @click="login" type="primary" style="width:100%">登 录</el-button>
         </el-form-item>
-
       </el-form>
-      <!-- <div slot="header" class="clearfix">
-        <span>卡片名称</span>
-        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-      </div>
-      <div v-for="o in 4" :key="o" class="text item">
-        {{'列表内容 ' + o }}
-      </div> -->
     </el-card>
+    <!-- ref 标签属性 可通过this.$refs.属性获取DOM对象 -->
+    <div ref='div'></div>
   </div>
 </template>
 
@@ -69,6 +63,19 @@ export default {
         } }]
 
       }
+    }
+  },
+  methods: {
+    // 手动检验
+    login () {
+      // 通过this.$refs.属性---获取DOM对象
+      // this.$refs.formDom  获取el-form的对象实例
+      // validate 整个表单的校验方法
+      this.$refs.formDom.validate(function (isOk) {
+        if (isOk) {
+          // 如果为true 继续下一步 调用接口 登录
+        }
+      })
     }
   }
 }
