@@ -1,5 +1,6 @@
 <template>
   <div class="article">
+    <!-- 筛选文章 -->
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>全部图文</span>
@@ -49,12 +50,12 @@ export default {
   data () {
     return {
       filterForm: {
-        status: '',
-        channel_id: '',
-        stat_time: '',
-        end_time: ''
+        status: '', // 状态
+        channel_id: '', // 频道列表
+        stat_time: '', // 开始时间
+        end_time: '' // 结束时间
       },
-      rangetime: ''
+      rangetime: '' // 时间范围
     }
   },
   created () {
