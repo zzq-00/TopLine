@@ -1,5 +1,5 @@
 <template>
-    <div>首页</div>
+  <div>发布</div>
 </template>
 
 <script>

@@ -5,8 +5,19 @@
       <!-- 卡片内容 -->
       <div class="title"><img src="../../img/logo_index.png" alt=""></div>
       <!-- 表单 moder表示表单数据对象 rule表示表单校验规则-->
-      <el-form ref='formDom' style="margin-top:30px" :rules="loginrule" :model="loginForm">
+      <!-- ref可以获取DOM对象
+      ref也可以获取组件
+      常见面试问题：vue中获取DOM元素方法 ref
+      ref得值要唯一，否则后者会覆盖前者
+      组件是一个特殊的Vue实例 this
+      -->
+      <el-form
+        ref='formDom'
+        style="margin-top:30px"
+        :rules="loginrule"
+        :model="loginForm">
         <el-form-item prop="mobile">
+
           <el-input placeholder="请输入手机号" v-model="loginForm.mobile"></el-input>
         </el-form-item>
         <el-form-item prop="code">
@@ -22,7 +33,7 @@
       </el-form>
     </el-card>
     <!-- ref 标签属性 可通过this.$refs.属性获取DOM对象 -->
-    <div ref='div'></div>
+    <!-- <div ref='div'></div> -->
   </div>
 </template>
 
@@ -70,6 +81,7 @@ export default {
     login () {
       // 通过this.$refs.属性---获取DOM对象
       // this.$refs.formDom  获取el-form的对象实例
+      // el-form 组件有validate方法，用于手动触发校验
       // validate 整个表单的校验方法
       this.$refs.formDom.validate((isOk) => {
         if (isOk) {
@@ -79,11 +91,11 @@ export default {
             url: '/authorizations',
             data: this.loginForm
           }).then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             // res.data.data.token 获取token 存到本地浏览器
             window.localStorage.setItem('user-token', res.data.data.token)
             // 跳转到主页
-            this.$router.push('/index')
+            this.$router.push('/layout')
           }).catch(() => {
             // 提示信息
             this.$message({
