@@ -91,7 +91,7 @@ export default {
             url: '/authorizations',
             data: this.loginForm
           }).then((res) => {
-            // console.log(res.data)
+            console.log(res.data)
             // res.data.data.token 获取token 存到本地浏览器
             window.localStorage.setItem('user-token', res.data.data.token)
             // 跳转到主页

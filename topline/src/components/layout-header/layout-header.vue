@@ -7,10 +7,10 @@
         </el-col>
         <el-col :span='4' class="right">
             <!-- 头像 -->
-            <img src="../../img/zly.jpg" alt="" style="width:30px;height:30px">
+            <img :src="user.photo" alt="" style="width:30px;height:30px">
             <!-- 下拉菜单 -->
             <el-dropdown trigger="click">
-                <span>赵丽颖</span>
+                <span>{{ user.name }}</span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>账户信息</el-dropdown-item>
                     <el-dropdown-item>git地址</el-dropdown-item>
@@ -23,8 +23,31 @@
 </template>
 
 <script>
+import eventBus from '../../unit/event-bus.js'
 export default {
+  name: 'layHeader',
+  data () {
+    return {
+      user: {
+        name: '', // 用户昵称
+        photo: '' // 用户头像
+      }
+    }
+  },
+  created () {
+    this.loadUser()
+    // 想要根据个人信息的修改--联动用户头像的改变
+    // 在初始化created 监听自定义事件
+    // 在头部组件注册监听---订阅
+    eventBus.$on('update-user', (user) => {
+      console.log(user)
+      // 逻辑代码
+      this.user.name = user.name
+      this.user.photo = user.photo
+    })
+  },
   methods: {
+    // 点击退出
     onLogout () {
       this.$confirm('确认退出嘛,?', '退出提示', {
         confirmButtonText: '确定',
@@ -35,6 +58,19 @@ export default {
           type: '',
           message: '退出成功'
         })
+        this.$router.push('/login')
+      })
+    },
+    // 获取当前 登录用户的头像以及昵称
+    loadUser () {
+      this.$axios({
+        method: 'get',
+        url: '/user/profile'
+      }).then(res => {
+        // console.log(res)
+        this.user = res.data.data
+      }).catch(() => {
+        this.$message.error('获取头像失败')
       })
     }
   }

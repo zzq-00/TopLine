@@ -5,18 +5,30 @@ import Login from '../views/login/login.vue'
 // @ 是vuecli中提供的一种特殊路径规则，直接指向src
 import Index from '@/views/index/index.vue'
 import Article from '@/views/article/article.vue'
-import Public from '@/views/publish/publish.vue'
+import Publish from '@/views/publish/publish.vue'
+import Comment from '../views/comment/comment.vue'
+import CommentList from '../views/comment-list/indix.vue'
+import Account from '../views/account/index.vue'
+import Media from '../views/media/media.vue'
+import Button from '../components/zujian.vue/Button.vue'
 // 进度条
 import Nprogress from 'nprogress'
-// import Login2 from '../views/login/login2.vue'
-// import Index2 from '../views/index/index2.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    component: Login
+  },
+  {
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/button',
+    name: 'button',
+    component: Button
   },
   {
     path: '/layout',
@@ -24,7 +36,7 @@ const routes = [
     component: Layout,
     children: [
       {
-        path: '/ndex',
+        path: '/index',
         component: Index
       },
       {
@@ -32,21 +44,32 @@ const routes = [
         component: Article
       },
       {
-        path: '/public',
-        component: Public
+        path: '/publish',
+        component: Publish
+      },
+      {
+        path: '/publish/:articleId',
+        component: Publish
+      },
+      {
+        path: '/comment',
+        component: Comment
+      },
+      {
+        path: '/comment/:articleId',
+        component: CommentList,
+        props: true
+      },
+      {
+        path: '/account',
+        component: Account
+      },
+      {
+        path: '/media',
+        component: Media
       }
     ]
   }
-  // {
-  //   path: '/login2',
-  //   name: 'login2',
-  //   component: Login2
-  // },
-  // {
-  //   path: '/index2',
-  //   name: 'index2',
-  //   component: Index2
-  // }
 
   // {
   //   path: '/about',
